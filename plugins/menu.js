@@ -308,7 +308,7 @@ if (pilih == "ke8") {
 	}, btn, knimg)
 }
 // Sound
-await conn.sendFile(m.chat, "https://raw.githubusercontent.com/saipulanuar/Api-Github/main/audio/bot.mp3", "", "", m)
+await conn.sendFile(m.chat, "https://raw.githubusercontent.com/AyGemuy/HAORI-API/main/audio/bot.mp3", "", "", m)
   } catch (e) {
     conn.reply(m.chat, "Maaf, menu sedang error", m)
     throw e

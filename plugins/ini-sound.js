@@ -98,7 +98,7 @@ let vn
 await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
 } else if (!isNumber(text)) {
 //VN 2
-let vn = `https://raw.githubusercontent.com/saipulanuar/Api-Github/main/audio/${text}.mp3`
+let vn = `https://raw.githubusercontent.com/AyGemuy/HAORI-API/main/audio/${text}.mp3`
 await conn.sendFile(m.chat, vn, text + '.mp3', '', m, null, adReply)
 } else if (e) {
 throw `Error`
