@@ -18,8 +18,8 @@ function padLead(num, size) {
 	return s;
 }
 
-let tagsgenshin = {
-	'search': 'Genshin Data',
+let tags = {
+	'genshin': 'Genshin Data'
 }
 const defaultMenu = {
 	before: `
@@ -36,30 +36,33 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 		let meh = padLead(ranNumb(39), 3)
 		let nais = fs.readFileSync('./thumbnail.jpg')
 		let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
-		let menugenshin = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(plugin => {
+		let help = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(plugin => {
 			return {
-				menugenshin: Array.isArray(plugin.tagsgenshin) ? plugin.menugenshin : [plugin.menugenshin],
-				tagsgenshin: Array.isArray(plugin.tagsgenshin) ? plugin.tagsgenshin : [plugin.tagsgenshin],
+				help: Array.isArray(plugin.tags) ? plugin.help : [plugin.help],
+				tags: Array.isArray(plugin.tags) ? plugin.tags : [plugin.tags],
 				prefix: 'customPrefix' in plugin,
 				enabled: !plugin.disabled,
 			}
 		})
-		for (let plugin of menugenshin)
-			if (plugin && 'tagsgenshin' in plugin)
-				for (let tag of plugin.tagsgenshin)
-					if (!(tag in tagsgenshin) && tag) tagsgenshin[tag] = tag
-		conn.genshinmenu = conn.genshinmenu ? conn.genshinmenu : {}
-		let before = conn.genshinmenu.before || defaultMenu.before
-		let header = conn.genshinmenu.header || defaultMenu.header
-		let body = conn.genshinmenu.body || defaultMenu.body
-		let footer = conn.genshinmenu.footer || defaultMenu.footer
+		let groups = {}
+    for (let tag in tags) {
+      groups[tag] = []
+      for (let plugin of help)
+        if (plugin.tags && plugin.tags.includes(tag))
+          if (plugin.help) groups[tag].push(plugin)
+          }
+		conn.menu = conn.menu ? conn.menu : {}
+		let before = conn.menu.before || defaultMenu.before
+		let header = conn.menu.header || defaultMenu.header
+		let body = conn.menu.body || defaultMenu.body
+		let footer = conn.menu.footer || defaultMenu.footer
 		let _text = [
 			before,
-			...Object.keys(tagsgenshin).map(tag => {
-				return header.replace(/%category/g, tagsgenshin[tag]) + '\n' + [
-					...menugenshin.filter(genshinmenu => genshinmenu.tagsgenshin && genshinmenu.tagsgenshin.includes(tag) && genshinmenu.menugenshin).map(genshinmenu => {
-						return genshinmenu.menugenshin.map(menugenshin => {
-							return body.replace(/%cmd/g, genshinmenu.prefix ? menugenshin : '%p' + menugenshin)
+			...Object.keys(tags).map(tag => {
+				return header.replace(/%category/g, tags[tag]) + '\n' + [
+					...help.filter(menu => menu.tags && menu.tags.includes(tag) && menu.help).map(menu => {
+						return menu.help.map(help => {
+							return body.replace(/%cmd/g, menu.prefix ? help : '%p' + help)
 								.trim()
 						}).join('\n')
 					}),
@@ -67,7 +70,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 				].join('\n')
 			})
 		].join('\n')
-		let text = typeof conn.genshinmenu == 'string' ? conn.genshinmenu : typeof conn.genshinmenu == 'object' ? _text : ''
+		let text = typeof conn.menu == 'string' ? conn.menu : typeof conn.menu == 'object' ? _text : ''
 		let replace = {
 			p: _p,
 			'%': '%',
@@ -81,15 +84,15 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
 			['Owner', '/owner']
 		], m)*/
 		conn.sendButton(m.chat, text.replace(`si <character>`, `si <character>${readMore}`).trim(), packname + ' - ' + author, nais, [
-			[`👥 Owner`, `.owner`],
-			[`💤 Next`, `.genshinmenu`]
+			['👥 Owner', '.owner'],
+			['💤 Next', '.genshinmenu']
 		], m)
 	} catch (e) {
 		conn.reply(m.chat, 'Maaf, menu genshin sedang error', m)
 		throw e
 	}
 }
-handler.help = ['menugenshin']
+handler.help = ['genshinmenu']
 handler.tags = ['genshin']
 handler.command = /^(genshinm(enu)?|m(enu)?genshin)$/i
 

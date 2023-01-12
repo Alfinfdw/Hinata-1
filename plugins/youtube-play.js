@@ -5,7 +5,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   if (!vid) throw 'Video/Audio Tidak ditemukan'
   let { title, description, thumbnail, videoId, durationH, viewH, publishedTime } = vid
   const url = 'https://www.youtube.com/watch?v=' + videoId
-  await conn.sendHydrated(m.chat, `
+  let caption = `
 *${htki} PLAY ${htka}*
 
 ${htjava} *Title:* ${title}
@@ -15,16 +15,20 @@ ${htjava} *Title:* ${title}
 
 🔗 *Url:* ${url}
 📔 *Description:* ${description}
-  `.trim(), wm, thumbnail, url, '📣 GO TO YOUTUBE', null, null, [
+  `.trim()
+  let listSections = []
+	
+	listSections.push(['PILIH YANG KAMU MAU', [
     ['🎶 Audio', `${usedPrefix}yta ${url} yes`],
     ['🎥 Video', `${usedPrefix}ytv ${url} yes`],
     ['🔎 Youtube Search', `${usedPrefix}yts ${url}`]
-  ], m)
-  throw 'Karena Anu nya :v\nHydrated Gak kliantan'
+        ]])
+	
+	return conn.sendList(m.chat, '', caption, author, '📣 GO TO YOUTUBE', listSections, m)
 }
-handler.help = ['play', 'play2'].map(v => v + ' <pencarian>')
+handler.help = ['play'].map(v => v + ' <pencarian>')
 handler.tags = ['downloader']
-handler.command = /^play2?$/i
+handler.command = /^play$/i
 handler.limit = true
 
 export default handler

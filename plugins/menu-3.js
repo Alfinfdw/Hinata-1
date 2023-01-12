@@ -466,50 +466,39 @@ const listMessage = {
     const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => "./src/avatar_contact.png")
     
     //------------------< MENU >----------------
-   let pusat = ["ke1", "ke2", "ke3", "ke4", "ke5", "ke6", "ke7", "ke8"]
+   let pusat = ["ke1", "ke2", "ke3", "ke4", "ke5", "ke6"]
 let pilih = pusat.getRandom()
 if (pilih == "ke1") {
-	await conn.send2ButtonDoc(m.chat, text.trim(), author, emojis + " All Menu", _p + "allmenu", emojis + " List Menu", _p + "menulist", fakes, fakefb)
+	await conn.sendButton(m.chat, text.trim(), author, knimg, [[emojis + " All Menu", _p + "allmenu"], [emojis + " List Menu", _p + "menulist"]], fakes, fakefb)
 }
 if (pilih == "ke2") {
 	await conn.send2ButtonLoc(m.chat, knimg, text.trim(), author, emojis + " All Menu", _p + "allmenu", emojis + " List Menu", _p + "menulist", fakes, fakefb)
 }
 if (pilih == "ke3") {
-	await conn.send2ButtonImg(m.chat, knimg, text.trim(), author, emojis + " All Menu", _p + "allmenu", emojis + " List Menu", _p + "menulist", fakes, fakefb)
+	await conn.send2ButtonVid(m.chat, knimg, text.trim(), author, emojis + " All Menu", _p + "allmenu", emojis + " List Menu", _p + "menulist", fakes, adReplyS)
 }
 if (pilih == "ke4") {
-	await conn.send2ButtonVid(m.chat, knimg, text.trim(), author, emojis + " All Menu", _p + "allmenu", emojis + " List Menu", _p + "menulist", fakes, fakefb)
-}
-if (pilih == "ke5") {
-	await conn.sendTemplateButtonDoc(m.chat, knimg, text.trim(), author, emojis + " List Menu", _p + "menulist", fakes, fakefb)
-}
-if (pilih == "ke6") {
 	await conn.sendTemplateButtonLoc(m.chat, knimg, text.trim(), author, emojis + " List Menu", _p + "menulist", fakes, fakefb)
 }
-if (pilih == "ke7") {
-	await conn.send2TemplateButtonFakeImg(m.chat, knimg, text.trim(), author, emojis + " All Menu", _p + "allmenu", emojis + " List Menu", _p + "menulist", fakes, fakefb)
+if (pilih == "ke5") {
+	await conn.relayMessage(m.chat,  {
+    requestPaymentMessage: {
+      currencyCodeIso4217: 'USD',
+      amount1000: fsizedoc,
+      requestFrom: m.sender,
+      noteMessage: {
+      extendedTextMessage: {
+      text: text.trim(),
+      contextInfo: {
+      mentionedJid: [m.sender],
+      externalAdReply: {
+      showAdAttribution: true
+      }}}}}}, {})
 }
-if (pilih == "ke8") {
-	let btn = [{
-		urlButton: {
-			displayText: "Chat Owner",
-			url: "https://wa.me/" + nomorown
-		}
-	}, {
-		quickReplyButton: {
-			displayText: emojis + " All Menu",
-			id: _p + "allmenu"
-		}
-	}, {
-		quickReplyButton: {
-			displayText: emojis + " List Menu",
-			id: _p + "menulist"
-		}
-	}]
-	await conn.sendButtonGif(m.chat, text.trim(), wm, {
-		url: global.giflogo
-	}, btn, knimg)
+if (pilih == "ke6") {
+	await conn.send2ButtonDoc(m.chat, text.trim(), author, emojis + " All Menu", _p + "allmenu", emojis + " List Menu", _p + "menulist", fakes, adReply)
 }
+
 // Sound
 await conn.sendFile(m.chat, "https://raw.githubusercontent.com/AyGemuy/HAORI-API/main/audio/bot.mp3", "", "", m)
   } catch (e) {

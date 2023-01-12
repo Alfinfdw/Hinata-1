@@ -12,6 +12,6 @@ let handler = async (m, { args, conn, usedPrefix, command }) => {
 }
 handler.help = ['waifuim']
 handler.tags = ['internet']
-handler.command = /^(waifui[mn])$/i
+handler.command = ['waifuim']
 
 export default handler
