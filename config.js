@@ -82,19 +82,19 @@ global.xckey = "7iyNa0qA"
 */
 
 /*Number*/
-global.nomorbot = "6285171216276"
-global.nomorown = "6282195322106"
-global.namebot = "ʜɪɴᴀᴛᴀ-ʙᴏᴛ"
-global.nameown = "「 𝐖𝐮𝐝𝐲𝐒𝐨𝐟𝐭 」"
+global.nomorbot = "6285608468994"
+global.nomorown = "447971532870"
+global.namebot = "DivanXdBotz"
+global.nameown = "「 DivanXd 」"
 
 /* Random */
 global.pmenus = pickRandom(["◈","➭","ଓ","⟆•","⳻⳻","•","↬","◈▻","⭑","ᯬ","◉","᭻","»","〆","々","⛥","✗","⚜","⚚","♪"])
 global.htjava = pickRandom(["⛶","❏","⫹⫺","☰","⎔","✦","⭔","⬟","⛊","⚝"])
 
 /*Watermark*/
-global.wm = "                「 ʜɪɴᴀᴛᴀ-ʙᴏᴛ あ⁩ 」"
+global.wm = "                「 DivanXdBotz あ⁩ 」"
 global.wm2 = "꒷︶꒷꒥꒷ ‧₊˚ ꒰ฅ˘օառɛʀ˘ฅ ꒱ ‧₊˚꒷︶꒷꒥꒷"
-global.wm3 = htjava + " ʜɪɴᴀᴛᴀ-ʙᴏᴛ"
+global.wm3 = htjava + " DivanXdBotz"
 global.botdate = `${htjava} Date :  ${moment.tz("Asia/Jakarta").format("DD/MM/YY")}`
 global.bottime = `𝗧 𝗜 𝗠 𝗘 : ${moment.tz("Asia/Jakarta").format("HH:mm:ss")}`
 global.titlebot = `${htjava} Time Sever : ${moment.tz("Asia/Jakarta").format("HH:mm:ss")}\n⫹⫺ Date Server :  ${moment.tz("Asia/Jakarta").format("DD/MM/YY")}`
